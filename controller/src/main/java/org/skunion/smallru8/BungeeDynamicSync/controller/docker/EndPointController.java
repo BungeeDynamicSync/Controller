@@ -18,6 +18,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.skunion.smallru8.BungeeDynamicSync.controller.Controller;
 import org.skunion.smallru8.util.SHA;
 public class EndPointController {
 
@@ -130,12 +131,12 @@ public class EndPointController {
 	public String createContainer(String dynamic_server) {
 		if(!LOCK) {
 			String name = dynamic_server+"_"+SHA.SHA1(dynamic_server+random.nextInt());
-			String json_raw = getCreateJson_RAW(BungeeDynamicSync.CONFIG.getServerConfig().getSection(dynamic_server).getString("ContainerCreateScript"))
+			String json_raw = getCreateJson_RAW(Controller.SERVER_CONFIG.getContainerCreateScript(dynamic_server))
 					.replace("$TYPE", dynamic_server)
 					.replace("$CT_NAME",name)
-					.replace("$REDIS_IP_VALUE", BungeeDynamicSync.CONFIG.redis_config.getString("redis-server"))
-					.replace("$REDIS_PORT_VALUE", BungeeDynamicSync.CONFIG.redis_config.getString("redis-port"))
-					.replace("$REDIS_PASSWD_VALUE", BungeeDynamicSync.CONFIG.redis_config.getString("redis-password"));
+					.replace("$REDIS_IP_VALUE", Controller.REDIS_SETTING.getIP())
+					.replace("$REDIS_PORT_VALUE", ""+Controller.REDIS_SETTING.getPort())
+					.replace("$REDIS_PASSWD_VALUE", Controller.REDIS_SETTING.getPasswd());
 			String url = portainerAuth.getURL(endPointId)+"containers/create?name="+name;
 			
 			try {
@@ -148,7 +149,8 @@ public class EndPointController {
 			    HttpEntity entity = response.getEntity();
 			    
 			    JSONObject result = new JSONObject(EntityUtils.toString(entity));
-			    BungeeDynamicSync.BDS.getLogger().info("Create container: "+dynamic_server+", id: "+result.getString("Id")+" at endpoint: "+endPointHostIP);
+			    //TODO
+			    ///BungeeDynamicSync.BDS.getLogger().info("Create container: "+dynamic_server+", id: "+result.getString("Id")+" at endpoint: "+endPointHostIP);
 			    if(result.getString("Id")==null)
 			    	return null;
 			    return name;
@@ -156,7 +158,8 @@ public class EndPointController {
 				e.printStackTrace();
 			}
 		}
-		BungeeDynamicSync.BDS.getLogger().info("Create container: "+dynamic_server+" failed. Endpoint: "+endPointHostIP);
+		//TODO
+		///BungeeDynamicSync.BDS.getLogger().info("Create container: "+dynamic_server+" failed. Endpoint: "+endPointHostIP);
 		return null;
 	}
 	
@@ -223,7 +226,7 @@ public class EndPointController {
 	private String getCreateJson_RAW(String jsonName) {
 		String ret = "";
 		try {
-			FileReader fr = new FileReader(new File(BungeeDynamicSync.CONFIG.getContainerSettingDir(),jsonName));
+			FileReader fr = new FileReader(new File("config/containerScript"+jsonName));
 			BufferedReader br = new BufferedReader(fr);
 			String line = "";
 			while((line=br.readLine())!=null)

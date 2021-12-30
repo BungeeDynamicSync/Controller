@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.json.JSONObject;
 import org.skunion.smallru8.BungeeDynamicSync.controller.config.PortainerConfig;
 
-
+//TODO
 public class MainController {
 
 	private ArrayList<EndPointController> epcs = new ArrayList<EndPointController>();
