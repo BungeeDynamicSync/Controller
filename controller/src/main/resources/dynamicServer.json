@@ -1,0 +1,13 @@
+{
+	"sample_bedwar" : {
+		"minRoom" : 2,
+		"maxRoom" : 10,
+		"ContainerCreateScript" : "CreateContainer.json"
+	},
+	"sample_skywar" : {
+		"minRoom" : 2,
+		"maxRoom" : 7,
+		"ContainerCreateScript" : "CreateContainer.json"
+	}
+}
+

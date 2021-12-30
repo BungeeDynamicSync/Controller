@@ -13,7 +13,7 @@ import org.skunion.smallru8.BungeeDynamicSync.controller.util.ReadFile;
 
 public class PortainerConfig {
 
-private JSONArray config;
+	private JSONArray config;
 	
 	private File path;
 	
@@ -38,9 +38,8 @@ private JSONArray config;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}else {
-			config = new JSONArray(ReadFile.READ_FILE(path));
 		}
+		config = new JSONArray(ReadFile.READ_FILE(path));
 	}
 	
 	public int getPortainerCount() {
