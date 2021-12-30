@@ -1,0 +1,30 @@
+[
+	{
+		"ip" : "127.0.0.1",
+		"port" : 9000,
+		"username" : "admin",
+		"passwd" : "admin",
+		"endpoints" : [
+			{
+				"id" : 1,
+				"maxContainer" : 6
+			}
+		]
+	},
+	{
+		"ip" : "10.10.0.87",
+		"port" : 9000,
+		"username" : "admin",
+		"passwd" : "admin",
+		"endpoints" : [
+			{
+				"id" : 1,
+				"maxContainer" : 8
+			},
+			{
+				"id" : 2,
+				"maxContainer" : 10
+			}
+		]
+	}
+]
